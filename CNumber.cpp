@@ -137,6 +137,42 @@ bool CNumber::operator>=(CNumber n)
 	return true;
 }
 
+bool CNumber::operator==(long long n)
+{
+	CNumber a = n;
+	return *this == a;
+}
+
+bool CNumber::operator!=(long long n)
+{
+	CNumber a = n;
+	return *this != a;
+}
+
+bool CNumber::operator<(long long n)
+{
+	CNumber a = n;
+	return *this < a;
+}
+
+bool CNumber::operator>(long long n)
+{
+	CNumber a = n;
+	return *this > a;
+}
+
+bool CNumber::operator<=(long long n)
+{
+	CNumber a = n;
+	return *this <= a;
+}
+
+bool CNumber::operator>=(long long n)
+{
+	CNumber a = n;
+	return *this >= a;
+}
+
 CNumber CNumber::operator-(void)
 {
 	CNumber a = *this;

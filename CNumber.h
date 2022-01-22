@@ -30,6 +30,13 @@ class CNumber
 		bool operator<=(CNumber n);
 		bool operator>=(CNumber n);
 
+		bool operator==(long long n);
+		bool operator!=(long long n);
+		bool operator<(long long n);
+		bool operator>(long long n);
+		bool operator<=(long long n);
+		bool operator>=(long long n);
+
 		// Arithmetic operator
 		CNumber operator-(void);
 		CNumber operator<<(long long n);
