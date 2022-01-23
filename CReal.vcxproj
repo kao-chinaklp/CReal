@@ -142,6 +142,7 @@
     <ClCompile Include="CNumber.cpp" />
     <ClCompile Include="CReal.cpp" />
     <ClCompile Include="Num.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CNumber.h" />
