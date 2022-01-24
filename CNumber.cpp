@@ -363,7 +363,7 @@ CNumber CNumber::operator/(CNumber b)
 	// Processing symbols
 	a.number[0] = b.number[0] = d.number[0] = false;
 
-	while (a <= b && a > 0)
+	while (a >= b && a > 0)
 	{
 		a -= b;
 		c++;
@@ -376,12 +376,12 @@ CNumber CNumber::operator/(CNumber b)
 
 CNumber CNumber::operator%(CNumber b)
 {
-	CNumber a = *this, c = 0, d = a;
+	CNumber a = *this, c = 0, d = a, e = b;
 	bool tmp = (a.number[0] != b.number[0]) ? true : false;
 	// Processing symbols
 	a.number[0] = b.number[0] = d.number[0] = false;
 
-	while (a < b)
+	while (a >= b && a > 0)
 	{
 		a -= b;
 		c++;
@@ -389,7 +389,7 @@ CNumber CNumber::operator%(CNumber b)
 	if (d < b)c.number[0] = false;
 	else c.number[0] = tmp;
 
-	return d - (b * c);
+	return d - (e * c);
 }
 
 CNumber CNumber::pow(CNumber b)
