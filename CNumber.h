@@ -59,6 +59,7 @@ class CNumber
 		CNumber operator*(long long b);
 		CNumber operator/(long long b);
 		CNumber operator%(long long b);
+		CNumber pow(long long b);
 
 		void operator+=(CNumber b);
 		void operator-=(CNumber b);

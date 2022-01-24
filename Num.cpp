@@ -70,7 +70,7 @@ Num Num::operator^(long long b)
 	c.num.resize(2);
 	c.num[1] = 1;
 
-	for (long long i = 1; i <= b; i++)
+	for (unsigned long long i = 1; i <= b; i++)
 		c = c * a;
 
 	return c;

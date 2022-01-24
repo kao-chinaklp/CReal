@@ -432,6 +432,16 @@ CNumber CNumber::operator%(long long b)
 	return *this % a;
 }
 
+CNumber CNumber::pow(long long b)
+{
+	CNumber a = *this, c = 1;
+
+	for (unsigned long long i = 1; i <= b; i++)
+		c *= a;
+
+	return c;
+}
+
 void CNumber::operator+=(CNumber b)
 {
 	*this = *this + b;
