@@ -121,7 +121,16 @@ bool CNumber::operator>(CNumber n)
 {
 	CNumber a = *this;
 
-	return !(a <= n);
+	if (a.number[0] == false && n.number[0] == true)return true;
+	if (a.number[0] == true && n.number[0] == false)return false;
+	if (a.len > n.len)return true;
+	if (a.len < n.len)return false;
+	for (unsigned long long i = a.len; i > 0; i--)
+	{
+		if (a.number[i] > n.number[i])return true;
+		if (a.number[i] < n.number[i])return false;
+	}
+	return false;
 }
 
 bool CNumber::operator<=(CNumber n)
