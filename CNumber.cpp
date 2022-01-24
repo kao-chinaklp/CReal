@@ -358,17 +358,17 @@ CNumber CNumber::operator*(CNumber b)
 
 CNumber CNumber::operator/(CNumber b)
 {
-	CNumber a = *this, c = 0, d = a;
+	CNumber a = *this, c = 0;
 	bool tmp = (a.number[0] != b.number[0]) ? true : false;
 	// Processing symbols
-	a.number[0] = b.number[0] = d.number[0] = false;
+	a.number[0] = b.number[0] = false;
 
 	while (a >= b && a > 0)
 	{
 		a -= b;
 		c++;
 	}
-	if (d < b)c.number[0] = false;
+	if (c == 0)c.number[0] = false;
 	else c.number[0] = tmp;
 
 	return c;
@@ -379,14 +379,14 @@ CNumber CNumber::operator%(CNumber b)
 	CNumber a = *this, c = 0, d = a, e = b;
 	bool tmp = (a.number[0] != b.number[0]) ? true : false;
 	// Processing symbols
-	a.number[0] = b.number[0] = d.number[0] = false;
+	a.number[0] = b.number[0] = false;
 
 	while (a >= b && a > 0)
 	{
 		a -= b;
 		c++;
 	}
-	if (d < b)c.number[0] = false;
+	if (c == 0)c.number[0] = false;
 	else c.number[0] = tmp;
 
 	return d - (e * c);
