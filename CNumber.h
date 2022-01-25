@@ -2,7 +2,10 @@
 
 #include "Num.h"
 
+#include <ctime>
 #include <vector>
+#include <string>
+#include <cstdlib>
 
 class CNumber
 {
@@ -21,6 +24,9 @@ class CNumber
 
 		// Logical operator
 		void ShowNumber(); // Output the result after binary to decimal.
+		void GetNumber(std::string s);
+		void Rand();
+
 		CNumber operator=(const long long n);
 		void operator=(CNumber n);
 		bool operator==(CNumber n);

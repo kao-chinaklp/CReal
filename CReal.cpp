@@ -99,4 +99,6 @@ void CReal::operator--(int)
 CReal CReal::operator+(CReal b)
 {
 	CReal a = *this;
+
+	return a;
 }

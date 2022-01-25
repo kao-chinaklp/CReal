@@ -53,6 +53,44 @@ void CNumber::ShowNumber()
 	cout << s;
 }
 
+void CNumber::GetNumber(std::string s)
+{
+	Num a, b, d;
+	b.len = 1;
+	b.num.resize(2);
+	b.num[1] = 0;
+	d.len = 1;
+	d.num.resize(2);
+	d.num[1] = 2;
+
+	number.clear();
+	len = 0;
+	if (s[0] == '-')
+	{
+		number.push_back(1);
+		s.erase(0, 1);
+	}
+	else number.push_back(0);
+	a.getNum(s);
+
+	while (a != b)
+	{
+		Num c = a % d;
+		if (c == b)number.push_back(0), ++len;
+		else number.push_back(1), ++len;
+		a = a / d;
+	}
+}
+
+void CNumber::Rand()
+{
+	int r;
+	len = rand() % 1000;
+	number.resize(len + 1);
+	for (long long i = 1; i <= len; i++)
+		number[i] = rand() & 1;
+}
+
 CNumber CNumber::operator=(const long long n)
 {
 	number.resize(1);
@@ -445,7 +483,7 @@ CNumber CNumber::pow(long long b)
 {
 	CNumber a = *this, c = 1;
 
-	for (unsigned long long i = 1; i <= b; i++)
+	for (long long i = 1; i <= b; i++)
 		c *= a;
 
 	return c;

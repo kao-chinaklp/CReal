@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <iostream>
 
+#include <Windows.h>
+
 using namespace std;
 
 CNumber a, b, c;
@@ -11,37 +13,17 @@ int main()
 {
 	while (true)
 	{
-		long long x, y;
-		char s;
-		printf("Input a: ");
-		cin >> x;
-		printf("Input b: ");
-		cin >> y;
-		a = x;
-		b = y;
-		printf("Input sign: ");
-		cin >> s;
-		switch (s)
-		{
-			case '+':
-				c = a + b;
-				break;
-			case '-':
-				c = a - b;
-				break;
-			case '*':
-				c = a * b;
-				break;
-			case '/':
-				c = a / b;
-				break;
-			case '%':
-				c = a % b;
-				break;
-		}
-		cout << "result: ";
+		CNumber a, b, c;
+		a.Rand();
+		b.Rand();
+		cout << "\na: ";
+		a.ShowNumber();
+		cout << "\nb: ";
+		b.ShowNumber();
+		c = a / b;
+		cout << "\nresult: ";
 		c.ShowNumber();
-		cout << endl;
+		system("pause");
 	}
 	return 0;
 }

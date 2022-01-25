@@ -13,9 +13,17 @@ class Num
 		unsigned long long len;
 
 		std::string showNum();
+		void getNum(std::string s);
 
+		bool operator==(Num b);
+		bool operator!=(Num b);
+		bool operator>(Num b);
+		bool operator>=(Num b);
 		Num operator+(Num b);
+		Num operator-(Num b);
 		Num operator*(Num b);
+		Num operator/(Num b);
+		Num operator%(Num b);
 		Num operator^(long long b);
 };
 
