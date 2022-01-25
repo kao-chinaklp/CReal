@@ -406,7 +406,7 @@ CNumber CNumber::operator*(CNumber b)
 
 CNumber CNumber::operator/(CNumber b)
 {
-	CNumber a = *this, c = 0, d = b;
+	CNumber a = *this, c, d = b;
 	bool tmp = (a.number[0] != b.number[0]) ? true : false, ok = true;
 	long long displacement = a.len - b.len;
 	a.number[0] = b.number[0]= d.number[0] = false;
@@ -439,20 +439,10 @@ CNumber CNumber::operator/(CNumber b)
 
 CNumber CNumber::operator%(CNumber b)
 {
-	CNumber a = *this, c = 0, d = a, e = b;
-	bool tmp = (a.number[0] != b.number[0]) ? true : false;
-	// Processing symbols
-	a.number[0] = b.number[0] = false;
+	CNumber a = *this, c = 0;
 
-	while (a >= b && a > 0)
-	{
-		a -= b;
-		c++;
-	}
-	if (c == 0)c.number[0] = false;
-	else c.number[0] = tmp;
-
-	return d - (e * c);
+	c = a / b;
+	return a - (b * c);
 }
 
 CNumber CNumber::pow(CNumber b)

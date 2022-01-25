@@ -50,7 +50,11 @@ bool Num::operator>(Num b)
 	if (a.len > b.len)return true;
 	if (a.len < b.len)return false;
 	for (int i = a.len; i >= 1; i--)
+	{
 		if (a.num[i] > b.num[i])return true;
+		if (a.num[i] < b.num[i])return false;
+	}
+	
 	return false;
 }
 
@@ -60,6 +64,32 @@ bool Num::operator>=(Num b)
 
 	if (a == b)return true;
 	return a > b;
+}
+
+Num Num::operator<<(long long n)
+{
+	Num ans = *this;
+
+	ans.num.resize(ans.len + n + 1);
+	for (unsigned long long i = ans.len; i >= 1; i--)
+		ans.num[i + n] = ans.num[i];
+	for (unsigned long long i = n; i >= 1; i--)
+		ans.num[i] = false;
+	ans.len += n;
+
+	return ans;
+}
+
+Num Num::operator>>(long long n)
+{
+	Num ans = *this;
+
+	for (unsigned long long i = n + 1; i <= ans.len; i++)
+		ans.num[i - n] = ans.num[i];
+	ans.num.resize(ans.len + 1 - n);
+	ans.len -= n;
+
+	return ans;
 }
 
 Num Num::operator+(Num b)
@@ -129,7 +159,7 @@ Num Num::operator*(Num b)
 
 Num Num::operator/(Num b)
 {
-	Num a = *this, c, d, e;
+	/*Num a = *this, c, d, e;
 	bool tmp = (a.num[0] != b.num[0]) ? true : false;
 
 	d.len = 1;
@@ -148,6 +178,35 @@ Num Num::operator/(Num b)
 	}
 	if (c.len == 1 && c.num[1] == 0)c.num[0] = false;
 	else c.num[0] = tmp;
+
+	return c;*/
+	Num a = *this, c, d = b;
+	bool tmp = (a.num[0] != b.num[0]) ? true : false, ok = true;
+	long long displacement = a.len - b.len;
+	a.num[0] = b.num[0] = d.num[0] = false;
+
+	c.len = max(a.len, b.len);
+	c.num.resize(c.len + 1);
+	b = b << displacement;
+	while (displacement >= 0 && a >= d)
+	{
+		ok = false;
+		while (!(a >= b))
+		{
+			b = b >> 1;
+			--displacement;
+		}
+		c.num[displacement + 1]++;
+		a = a - b;
+	}
+	if (ok)c.num[0] = false;
+	else c.num[0] = tmp;
+	// Remove leading zeros
+	while (c.num[c.len] == 0 && c.len > 1)
+	{
+		c.num.pop_back();
+		--c.len;
+	}
 
 	return c;
 }

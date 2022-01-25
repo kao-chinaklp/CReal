@@ -13,18 +13,16 @@ int main()
 {
 	while (true)
 	{
-		CNumber a, b, c;
+		Num a, b, c;
 		string x, y;
 		cout << "Input a: ";
 		cin >> x;
-		a.GetNumber(x);
+		a.getNum(x);
 		cout << "Input b: ";
 		cin >> y;
-		b.GetNumber(y);
+		b.getNum(y);
 		c = a / b;
-		cout << "result: ";
-		c.ShowNumber();
-		cout << endl;
+		cout << "result: " << c.showNum() << endl;
 		system("pause");
 	}
 	return 0;
