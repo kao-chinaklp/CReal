@@ -13,6 +13,7 @@ int main()
 {
 	while (true)
 	{
+		int m_time;
 		Num a, b, c;
 		string x, y;
 		cout << "Input a: ";
@@ -21,8 +22,10 @@ int main()
 		cout << "Input b: ";
 		cin >> y;
 		b.getNum(y);
+		m_time = clock();
 		c = a / b;
 		cout << "result: " << c.showNum() << endl;
+		cout << "Used: " << clock() - m_time << "ms\n";
 		system("pause");
 	}
 	return 0;
