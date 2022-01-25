@@ -14,15 +14,17 @@ int main()
 	while (true)
 	{
 		CNumber a, b, c;
-		a.Rand();
-		b.Rand();
-		cout << "\na: ";
-		a.ShowNumber();
-		cout << "\nb: ";
-		b.ShowNumber();
+		string x, y;
+		cout << "Input a: ";
+		cin >> x;
+		a.GetNumber(x);
+		cout << "Input b: ";
+		cin >> y;
+		b.GetNumber(y);
 		c = a / b;
-		cout << "\nresult: ";
+		cout << "result: ";
 		c.ShowNumber();
+		cout << endl;
 		system("pause");
 	}
 	return 0;
