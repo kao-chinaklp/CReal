@@ -13,16 +13,16 @@ int main()
 {
 	while (true)
 	{
+		int m_time;
 		CNumber a, b, c;
-		a.Rand();
-		b.Rand();
-		cout << "\na: ";
+		string x, y;
+		cout << "Input a: ";
+		cin >> x;
+		m_time = clock();
+		a.GetNumber(x);
+		cout << "Used: " << clock() - m_time << "ms\n";
+		cout << "result: ";
 		a.ShowNumber();
-		cout << "\nb: ";
-		b.ShowNumber();
-		c = a / b;
-		cout << "\nresult: ";
-		c.ShowNumber();
 		system("pause");
 	}
 	return 0;

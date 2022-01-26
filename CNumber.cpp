@@ -55,13 +55,15 @@ void CNumber::ShowNumber()
 
 void CNumber::GetNumber(std::string s)
 {
-	Num a, b, d;
+	Num a, b, e, f;
+	long long i = 0;
 	b.len = 1;
 	b.num.resize(2);
 	b.num[1] = 0;
-	d.len = 1;
-	d.num.resize(2);
-	d.num[1] = 2;
+	f = b;
+	e.len = 1;
+	e.num.resize(2);
+	e.num[1] = 2;
 
 	number.clear();
 	len = 0;
@@ -73,12 +75,25 @@ void CNumber::GetNumber(std::string s)
 	else number.push_back(0);
 	a.getNum(s);
 
+	if (a >= f)f.num[1] = 1, ++i;
+	while (a >= f)
+	{
+		f = f * e;
+		++i;
+	}
+	i--;
+	f = f / e;
+	number.resize(i + 1);
+	len = i;
 	while (a != b)
 	{
-		Num c = a % d;
-		if (c == b)number.push_back(0), ++len;
-		else number.push_back(1), ++len;
-		a = a / d;
+		while (!(a >= f))
+		{
+			f = f / e;
+			--i;
+		}
+		number[i] = true;
+		a = a - f;
 	}
 }
 
@@ -268,6 +283,7 @@ CNumber CNumber::operator>>(long long n)
 	for (unsigned long long i = n + 1; i <= ans.len; i++)
 		ans.number[i - n] = ans.number[i];
 	ans.number.resize(ans.len + 1 - n);
+	ans.len -= n;
 
 	return ans;
 }
@@ -405,38 +421,43 @@ CNumber CNumber::operator*(CNumber b)
 
 CNumber CNumber::operator/(CNumber b)
 {
-	CNumber a = *this, c = 0;
-	bool tmp = (a.number[0] != b.number[0]) ? true : false;
-	// Processing symbols
-	a.number[0] = b.number[0] = false;
+	CNumber a = *this, c, d = b;
+	bool tmp = (a.number[0] != b.number[0]) ? true : false, ok = true;
+	long long displacement = a.len - b.len;
+	a.number[0] = b.number[0]= d.number[0] = false;
 
-	while (a >= b && a > 0)
+	c.len = max(a.len, b.len);
+	c.number.resize(c.len + 1);
+	b = b << displacement;
+	while (displacement >= 0 && a >= d)
 	{
+		ok = false;
+		while (a < b)
+		{
+			b = b >> 1;
+			--displacement;
+		}
+		c.number[displacement + 1] = true;
 		a -= b;
-		c++;
 	}
-	if (c == 0)c.number[0] = false;
+	if (ok)c.number[0] = false;
 	else c.number[0] = tmp;
+	// Remove leading zeros
+	while (c.number[c.len] == 0 && c.len > 1)
+	{
+		c.number.pop_back();
+		--c.len;
+	}
 
 	return c;
 }
 
 CNumber CNumber::operator%(CNumber b)
 {
-	CNumber a = *this, c = 0, d = a, e = b;
-	bool tmp = (a.number[0] != b.number[0]) ? true : false;
-	// Processing symbols
-	a.number[0] = b.number[0] = false;
+	CNumber a = *this, c = 0;
 
-	while (a >= b && a > 0)
-	{
-		a -= b;
-		c++;
-	}
-	if (c == 0)c.number[0] = false;
-	else c.number[0] = tmp;
-
-	return d - (e * c);
+	c = a / b;
+	return a - (b * c);
 }
 
 CNumber CNumber::pow(CNumber b)
