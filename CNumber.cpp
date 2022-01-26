@@ -399,7 +399,7 @@ CNumber CNumber::operator*(CNumber b)
 	for (unsigned long long i = 1; i <= a.len; i++)
 		if (a.number[i])c += (b << (i - 1));
 	// Remove leading zeros
-	while (c.number[c.len] == 0)
+	while (c.number[c.len] == 0 && len > 1)
 	{
 		c.number.pop_back();
 		--c.len;
