@@ -89,6 +89,12 @@ void CNumber::Rand()
 	number.resize(len + 1);
 	for (long long i = 1; i <= len; i++)
 		number[i] = rand() & 1;
+	// Remove leading zeros
+	while (number[len] == 0 && len > 1)
+	{
+		number.pop_back();
+		--len;
+	}
 }
 
 CNumber CNumber::operator=(const long long n)
