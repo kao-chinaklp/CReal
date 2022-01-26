@@ -15,10 +15,9 @@ CNumber::CNumber()
 	len = 1;
 }
 
-CNumber::CNumber(const long long n)
+CNumber::CNumber(long long n)
 {
 	number.resize(1);
-	unsigned long long a;
 
 	// Judgment symbol
 	if (n < 0)number[0] = true;
@@ -31,10 +30,10 @@ CNumber::CNumber(const long long n)
 		return;
 	}
 	// Divide by two and replace with n&1.
-	a = abs(n);
-	while (a > 0) {
+	n = abs(n);
+	while (n > 0) {
 		number.push_back(n & 1);
-		a = n >> 1;
+		n = n >> 1;
 	}
 	len = number.size() - 1;
 }

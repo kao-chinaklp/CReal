@@ -10,7 +10,7 @@ class CNumber
 {
 	public:
 		CNumber();
-		CNumber(const long long n);
+		CNumber(long long n);
 
 		// Use vector to use space dynamically.
 		// The first digit at the beginning, False indicates positive, and True indicates positive.
