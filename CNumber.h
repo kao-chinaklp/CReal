@@ -2,7 +2,6 @@
 
 #include "Num.h"
 
-#include <ctime>
 #include <vector>
 #include <string>
 #include <cstdlib>

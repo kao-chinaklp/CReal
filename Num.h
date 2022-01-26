@@ -19,6 +19,8 @@ class Num
 		bool operator!=(Num b);
 		bool operator>(Num b);
 		bool operator>=(Num b);
+		Num operator<<(long long n);
+		Num operator>>(long long n);
 		Num operator+(Num b);
 		Num operator-(Num b);
 		Num operator*(Num b);
