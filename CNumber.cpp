@@ -55,13 +55,15 @@ void CNumber::ShowNumber()
 
 void CNumber::GetNumber(std::string s)
 {
-	Num a, b, d;
+	Num a, b, e, f;
+	long long i = 0;
 	b.len = 1;
 	b.num.resize(2);
 	b.num[1] = 0;
-	d.len = 1;
-	d.num.resize(2);
-	d.num[1] = 2;
+	f = b;
+	e.len = 1;
+	e.num.resize(2);
+	e.num[1] = 2;
 
 	number.clear();
 	len = 0;
@@ -73,12 +75,25 @@ void CNumber::GetNumber(std::string s)
 	else number.push_back(0);
 	a.getNum(s);
 
+	if (a >= f)f.num[1] = 1, ++i;
+	while (a >= f)
+	{
+		f = f * e;
+		++i;
+	}
+	i--;
+	f = f / e;
+	number.resize(i + 1);
+	len = i;
 	while (a != b)
 	{
-		Num c = a % d;
-		if (c == b)number.push_back(0), ++len;
-		else number.push_back(1), ++len;
-		a = a / d;
+		while (!(a >= f))
+		{
+			f = f / e;
+			--i;
+		}
+		number[i] = true;
+		a = a - f;
 	}
 }
 

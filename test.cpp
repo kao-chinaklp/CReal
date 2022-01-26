@@ -14,18 +14,15 @@ int main()
 	while (true)
 	{
 		int m_time;
-		Num a, b, c;
+		CNumber a, b, c;
 		string x, y;
 		cout << "Input a: ";
 		cin >> x;
-		a.getNum(x);
-		cout << "Input b: ";
-		cin >> y;
-		b.getNum(y);
 		m_time = clock();
-		c = a / b;
-		cout << "result: " << c.showNum() << endl;
+		a.GetNumber(x);
 		cout << "Used: " << clock() - m_time << "ms\n";
+		cout << "result: ";
+		a.ShowNumber();
 		system("pause");
 	}
 	return 0;

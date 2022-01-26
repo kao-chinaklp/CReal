@@ -159,27 +159,6 @@ Num Num::operator*(Num b)
 
 Num Num::operator/(Num b)
 {
-	/*Num a = *this, c, d, e;
-	bool tmp = (a.num[0] != b.num[0]) ? true : false;
-
-	d.len = 1;
-	d.num.resize(2);
-	d.num[1] = 1;
-	e.len = 1;
-	d.num.resize(2);
-	e.num[1] = 0;
-	// Processing symbols
-	a.num[0] = b.num[0] = false;
-
-	while (a >= b && a > e)
-	{
-		a = a - b;
-		c = c + d;
-	}
-	if (c.len == 1 && c.num[1] == 0)c.num[0] = false;
-	else c.num[0] = tmp;
-
-	return c;*/
 	Num a = *this, c, d = b;
 	bool tmp = (a.num[0] != b.num[0]) ? true : false, ok = true;
 	long long displacement = a.len - b.len;
@@ -213,24 +192,11 @@ Num Num::operator/(Num b)
 
 Num Num::operator%(Num b)
 {
-	Num a = *this, c, d, e, f = a, g = b;
+	Num a = *this, c;
 
-	d.len = 1;
-	d.num.resize(2);
-	d.num[1] = 1;
-	e.len = 1;
-	d.num.resize(2);
-	e.num[1] = 0;
-	// Processing symbols
-	a.num[0] = b.num[0] = false;
+	c = a / b;
 
-	while (a >= b && a > e)
-	{
-		a = a - b;
-		c = c + d;
-	}
-
-	return f - (g * c);
+	return a - (b * c);
 }
 
 Num Num::operator^(long long b)
