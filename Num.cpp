@@ -27,6 +27,21 @@ void Num::getNum(string s)
 		num[j] = s[i] - 48;
 }
 
+Num Num::fast_pow(Num a, long long b)
+{
+	if (b == 0)
+	{
+		a.len = 1;
+		a.num.resize(2);
+		a.num[1] = 1;
+		return a;
+	}
+	if (b == 1)return a;
+	Num c = fast_pow(a, b / 2);
+	if (b & 1)return c * c * a;
+	else return c * c;
+}
+
 bool Num::operator==(Num b)
 {
 	Num a = *this;
@@ -201,12 +216,5 @@ Num Num::operator%(Num b)
 
 Num Num::operator^(long long b)
 {
-	Num a = *this, c;
-	c.num.resize(2);
-	c.num[1] = 1;
-
-	for (unsigned long long i = 1; i <= b; i++)
-		c = c * a;
-
-	return c;
+	return fast_pow(*this, b);
 }

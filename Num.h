@@ -14,6 +14,7 @@ class Num
 
 		std::string showNum();
 		void getNum(std::string s);
+		Num fast_pow(Num a, long long b);
 
 		bool operator==(Num b);
 		bool operator!=(Num b);
