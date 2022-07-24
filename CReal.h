@@ -12,6 +12,7 @@ class CReal
 		bool sign; // False indicates positive, and True indicates positive.
 
 		CNumber gcd(CNumber a, CNumber b);
+		CNumber lcm(CNumber a, CNumber b);
 
 		bool operator==(CReal b);
 		bool operator!=(CReal b);

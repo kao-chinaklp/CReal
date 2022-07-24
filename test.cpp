@@ -18,11 +18,11 @@ int main()
 		string x, y;
 		cout << "Input a: ";
 		cin >> x;
-		a.GetNumber(x);
-		printf("result: ");
 		m_time = clock();
-		a.ShowNumber();
+		a.GetNumber(x);
 		cout << "\nUsed: " << clock() - m_time << "ms\n";
+		printf("result: ");
+		a.ShowNumber();
 		system("pause");
 	}
 	return 0;

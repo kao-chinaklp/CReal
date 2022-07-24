@@ -1,5 +1,7 @@
 #include "CReal.h"
 
+using namespace cnumber;
+
 CReal::CReal()
 {
 	sign = false;
@@ -9,8 +11,24 @@ CReal::CReal()
 
 CNumber CReal::gcd(CNumber a, CNumber b)
 {
-	if (b != 0)return gcd(b, a % b);
-	else return a;
+	ULL i, j;
+
+	if (a == 0)return b;
+	if (b == 0)return a;
+	for (i = 0; (a & 1) == 0; i++)a >>= 1;
+	for (j = 0; (b & 1) == 0; j++)b >>= 1;
+	if (j < i)i = j;
+	while (true)
+	{
+		if (a < b)a ^= b, b ^= a, a ^= b;
+		if ((a -= b) == 0)return b << i;
+		while ((a & 1) == 0)a >>= 1;
+	}
+}
+
+CNumber CReal::lcm(CNumber a, CNumber b)
+{
+	return a * b / gcd(a, b);
 }
 
 bool CReal::operator==(CReal b)

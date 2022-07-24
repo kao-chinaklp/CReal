@@ -2,8 +2,17 @@
 
 #include <cstdio>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
+using namespace cnumber;
+
+void Complement(CNumber& n)
+{
+	n.number[0] = false;
+	~n;
+	n += 1;
+}
 
 CNumber::CNumber()
 {
@@ -15,10 +24,10 @@ CNumber::CNumber()
 	len = 1;
 }
 
-CNumber::CNumber(const long long n)
+CNumber::CNumber(const LL n)
 {
 	number.resize(1);
-	unsigned long long a;
+	ULL a;
 
 	// Judgment symbol
 	if (n < 0)number[0] = true;
@@ -46,7 +55,7 @@ void CNumber::ShowNumber()
 	c.num[1] = 2;
 	c.len = 1;
 
-	for (unsigned long long i = 1; i <= len; i++)
+	for (ULL i = 1; i <= len; i++)
 		if (number[i])a = a + (c ^ (i - 1));
 	string s = a.showNum();
 	if (number[0])cout << '-';
@@ -56,7 +65,7 @@ void CNumber::ShowNumber()
 void CNumber::GetNumber(std::string s)
 {
 	Num a, b, e, f;
-	long long i = 0;
+	LL i = 0;
 	b.len = 1;
 	b.num.resize(2);
 	b.num[1] = 0;
@@ -102,7 +111,7 @@ void CNumber::Rand()
 	int r;
 	len = rand() % 1000;
 	number.resize(len + 1);
-	for (long long i = 1; i <= len; i++)
+	for (LL i = 1; i <= len; i++)
 		number[i] = rand() & 1;
 	// Remove leading zeros
 	while (number[len] == 0 && len > 1)
@@ -112,10 +121,10 @@ void CNumber::Rand()
 	}
 }
 
-CNumber CNumber::operator=(const long long n)
+CNumber CNumber::operator=(const LL n)
 {
 	number.resize(1);
-	unsigned long long a;
+	ULL a;
 
 	// Judgment symbol
 	if (n < 0)number[0] = true;
@@ -149,7 +158,7 @@ bool CNumber::operator==(CNumber n)
 	CNumber a = *this;
 
 	if (a.len != n.len)return false;
-	for (unsigned long long i = 1; i <= a.len; i++)
+	for (ULL i = 1; i <= a.len; i++)
 		if (a.number[i] != n.number[i])return false;
 	return true;
 }
@@ -168,7 +177,7 @@ bool CNumber::operator<(CNumber n)
 	if (a.number[0] == false && n.number[0] == true)return false;
 	if (a.len < n.len)return true;
 	if (a.len > n.len)return false;
-	for (unsigned long long i = a.len; i > 0; i--)
+	for (ULL i = a.len; i > 0; i--)
 	{
 		if (a.number[i] < n.number[i])return true;
 		if (a.number[i] > n.number[i])return false;
@@ -184,7 +193,7 @@ bool CNumber::operator>(CNumber n)
 	if (a.number[0] == true && n.number[0] == false)return false;
 	if (a.len > n.len)return true;
 	if (a.len < n.len)return false;
-	for (unsigned long long i = a.len; i > 0; i--)
+	for (ULL i = a.len; i > 0; i--)
 	{
 		if (a.number[i] > n.number[i])return true;
 		if (a.number[i] < n.number[i])return false;
@@ -200,7 +209,7 @@ bool CNumber::operator<=(CNumber n)
 	if (a.number[0] == false && n.number[0] == true)return false;
 	if (a.len < n.len)return true;
 	if (a.len > n.len)return false;
-	for (unsigned long long i = a.len; i > 0; i--)
+	for (ULL i = a.len; i > 0; i--)
 	{
 		if (a.number[i] < n.number[i])return true;
 		if (a.number[i] > n.number[i])return false;
@@ -216,7 +225,7 @@ bool CNumber::operator>=(CNumber n)
 	if (a.number[0] == true && n.number[0] == false)return false;
 	if (a.len > n.len)return true;
 	if (a.len < n.len)return false;
-	for (unsigned long long i = a.len; i > 0; i--)
+	for (ULL i = a.len; i > 0; i--)
 	{
 		if (a.number[i] > n.number[i])return true;
 		if (a.number[i] < n.number[i])return false;
@@ -224,37 +233,37 @@ bool CNumber::operator>=(CNumber n)
 	return true;
 }
 
-bool CNumber::operator==(long long n)
+bool CNumber::operator==(LL n)
 {
 	CNumber a = n;
 	return *this == a;
 }
 
-bool CNumber::operator!=(long long n)
+bool CNumber::operator!=(LL n)
 {
 	CNumber a = n;
 	return *this != a;
 }
 
-bool CNumber::operator<(long long n)
+bool CNumber::operator<(LL n)
 {
 	CNumber a = n;
 	return *this < a;
 }
 
-bool CNumber::operator>(long long n)
+bool CNumber::operator>(LL n)
 {
 	CNumber a = n;
 	return *this > a;
 }
 
-bool CNumber::operator<=(long long n)
+bool CNumber::operator<=(LL n)
 {
 	CNumber a = n;
 	return *this <= a;
 }
 
-bool CNumber::operator>=(long long n)
+bool CNumber::operator>=(LL n)
 {
 	CNumber a = n;
 	return *this >= a;
@@ -268,30 +277,46 @@ CNumber CNumber::operator-(void)
 	return a;
 }
 
-CNumber CNumber::operator<<(long long n)
+CNumber CNumber::operator<<(LL n)
 {
 	CNumber ans = *this;
 
 	ans.number.resize(ans.len + n + 1);
-	for (unsigned long long i = ans.len; i >= 1; i--)
+	for (ULL i = ans.len; i >= 1; i--)
 		ans.number[i + n] = ans.number[i];
-	for (unsigned long long i = n; i >= 1; i--)
+	for (ULL i = n; i >= 1; i--)
 		ans.number[i] = false;
 	ans.len += n;
 
 	return ans;
 }
 
-CNumber CNumber::operator>>(long long n)
+CNumber CNumber::operator<<=(LL n)
+{
+	CNumber a = *this;
+
+	return a << n;
+}
+
+CNumber CNumber::operator>>(LL n)
 {
 	CNumber ans = *this;
 
-	for (unsigned long long i = n + 1; i <= ans.len; i++)
+	for (ULL i = n + 1; i <= ans.len; i++)
 		ans.number[i - n] = ans.number[i];
 	ans.number.resize(ans.len + 1 - n);
 	ans.len -= n;
 
 	return ans;
+}
+
+CNumber CNumber::operator>>=(LL n)
+{
+	{
+		CNumber a = *this;
+
+		return a >> n;
+	}
 }
 
 void CNumber::operator++()
@@ -412,7 +437,7 @@ CNumber CNumber::operator*(CNumber b)
 	else sign = true;
 
 	a.number[0] = b.number[0] = false;
-	for (unsigned long long i = 1; i <= a.len; i++)
+	for (ULL i = 1; i <= a.len; i++)
 		if (a.number[i])c += (b << (i - 1));
 	// Remove leading zeros
 	while (c.number[c.len] == 0 && c.len > 1)
@@ -429,7 +454,7 @@ CNumber CNumber::operator/(CNumber b)
 {
 	CNumber a = *this, c, d = b;
 	bool tmp = (a.number[0] != b.number[0]) ? true : false, ok = true;
-	long long displacement = a.len - b.len;
+	LL displacement = a.len - b.len;
 	a.number[0] = b.number[0]= d.number[0] = false;
 
 	c.len = max(a.len, b.len);
@@ -476,67 +501,198 @@ CNumber CNumber::pow(CNumber b)
 	return c;
 }
 
-CNumber CNumber::operator+(long long b)
+CNumber CNumber::operator+(LL b)
 {
 	CNumber a = b;
 	return *this + a;
 }
 
-CNumber CNumber::operator-(long long b)
+CNumber CNumber::operator-(LL b)
 {
 	CNumber a = b;
 	return *this - a;
 }
 
-CNumber CNumber::operator*(long long b)
+CNumber CNumber::operator*(LL b)
 {
 	CNumber a = b;
 	return *this * a;
 }
 
-CNumber CNumber::operator/(long long b)
+CNumber CNumber::operator/(LL b)
 {
 	CNumber a = b;
 	return *this / a;
 }
 
-CNumber CNumber::operator%(long long b)
+CNumber CNumber::operator%(LL b)
 {
 	CNumber a = b;
 	return *this % a;
 }
 
-CNumber CNumber::pow(long long b)
+CNumber CNumber::pow(LL b)
 {
 	CNumber a = *this, c = 1;
 
-	for (long long i = 1; i <= b; i++)
+	for (LL i = 1; i <= b; i++)
 		c *= a;
 
 	return c;
 }
 
-void CNumber::operator+=(CNumber b)
+CNumber CNumber::operator+=(CNumber b)
 {
 	*this = *this + b;
+
+	return *this;
 }
 
-void CNumber::operator-=(CNumber b)
+CNumber CNumber::operator-=(CNumber b)
 {
 	*this = *this - b;
+
+	return *this;
 }
 
-void CNumber::operator*=(CNumber b)
+CNumber CNumber::operator*=(CNumber b)
 {
 	*this = *this * b;
+
+	return *this;
 }
 
-void CNumber::operator/=(CNumber b)
+CNumber CNumber::operator/=(CNumber b)
 {
 	*this = *this / b;
+
+	return *this;
 }
 
-void CNumber::operator%=(CNumber b)
+CNumber CNumber::operator%=(CNumber b)
 {
 	*this = *this % b;
+
+	return *this;
+}
+
+CNumber CNumber::operator&(CNumber b)
+{
+	CNumber a = *this, c = 0;
+
+	if (a.number[0] == true)
+		Complement(a);
+	if (b.number[0] == true)
+		Complement(b);
+
+	ULL len = max(a.len, b.len);
+	a.number.resize(len);
+	b.number.resize(len);
+	c.number.resize(len);
+	c.len = len;
+	for (ULL i = 1; i <= len; i++)
+		if (a.number[i] && b.number[i])c.number[i] = true;
+	while (c.len > 1 && c.number[c.len] == false) {
+		c.len--;
+		c.number.pop_back();
+	}
+
+	return c;
+}
+
+CNumber CNumber::operator|(CNumber b)
+{
+	CNumber a = *this, c = 0;
+
+	if (a.number[0] == true)
+		Complement(a);
+	if (b.number[0] == true)
+		Complement(b);
+
+	ULL len = max(a.len, b.len);
+	a.number.resize(len);
+	b.number.resize(len);
+	c.number.resize(len);
+	c.len = len;
+	for (ULL i = 1; i <= len; i++)
+		if (a.number[i] || b.number[i])c.number[i] = true;
+	while (c.len > 1 && c.number[c.len] == false) {
+		c.len--;
+		c.number.pop_back();
+	}
+
+	return c;
+}
+
+CNumber CNumber::operator^(CNumber b)
+{
+	CNumber a = *this, c = 0;
+
+	ULL len = max(a.len, b.len);
+	a.number.resize(len);
+	b.number.resize(len);
+	c.number.resize(len);
+	c.len = len;
+	for (ULL i = 1; i <= len; i++)
+		if (a.number[i] != b.number[i])c.number[i] = true;
+	while (c.len > 1 && c.number[c.len] == false) {
+		c.len--;
+		c.number.pop_back();
+	}
+	
+	return c;
+}
+
+void CNumber::operator&=(CNumber b)
+{
+	*this = *this & b;
+}
+
+void CNumber::operator|=(CNumber b)
+{
+	*this = *this | b;
+}
+
+void CNumber::operator^=(CNumber b)
+{
+	*this = *this ^ b;
+}
+
+void CNumber::operator&=(LL b)
+{
+	*this = *this & b;
+}
+
+void CNumber::operator|=(LL b)
+{
+	*this = *this | b;
+}
+
+void CNumber::operator^=(LL b)
+{
+	*this = *this ^ b;
+}
+
+CNumber CNumber::operator&(LL b)
+{
+	CNumber a = b;
+	return *this & a;
+}
+
+CNumber CNumber::operator|(LL b)
+{
+	CNumber a = b;
+	return *this | a;
+}
+
+CNumber CNumber::operator^(LL b)
+{
+	CNumber a = b;
+	return *this ^ a;
+}
+
+void CNumber::operator~(void)
+{
+	for (ULL i = 0; i <= len; i++)
+		number[i] = !number[i];
 }
